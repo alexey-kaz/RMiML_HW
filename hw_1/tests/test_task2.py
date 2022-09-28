@@ -1,4 +1,5 @@
 import unittest
+
 from hw_1.task2 import triplets
 
 

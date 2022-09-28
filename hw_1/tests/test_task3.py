@@ -1,4 +1,5 @@
 import unittest
+
 from hw_1.task3 import top_k_n, top_k_nlogn
 
 task_test_1 = ([1, 1, 1, 2, 2, 3], 2)
