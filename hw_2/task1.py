@@ -11,5 +11,5 @@ class MedianFinder:
         if length == 0:
             return 0
         elif len(lst_sorted) % 2:
-            return lst_sorted[length // 2]
-        return (lst_sorted[length // 2] + lst_sorted[length // 2 - 1]) / 2
+            return round(lst_sorted[length // 2], 5)
+        return round((lst_sorted[length // 2] + lst_sorted[length // 2 - 1]) / 2, 5)

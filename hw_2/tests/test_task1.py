@@ -26,6 +26,13 @@ class MedianTest(unittest.TestCase):
         median_finder.add_num(3)
         self.assertEqual(median_finder.find_median(), 2)
 
+    def test_digits_after_dot(self):
+        median_finder = MedianFinder()
+        median_finder.add_num(1.1)
+        median_finder.add_num(2.333335)
+        median_finder.add_num(2.111112)
+        median_finder.add_num(3.1)
+        self.assertEqual(median_finder.find_median(), 2.22222)
 
 if __name__ == '__main__':
     unittest.main()
