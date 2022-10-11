@@ -5,7 +5,7 @@ class MyTimer:
     def __init__(self, units='s'):
         self.units = {'s': 0, 'm': 1, 'h': 2}[units]
         self.start = time.time()
-        self.runtime = 0
+        self.spent_time = 0
 
     def __enter__(self):
         return self
@@ -14,5 +14,5 @@ class MyTimer:
         end = time.time()
         self.runtime = (end - self.start) * 60 ** self.units
 
-    def spent_time(self):
-        return self.runtime
+    def elapsed_time(self):
+        return self.spent_time
