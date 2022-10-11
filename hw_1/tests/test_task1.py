@@ -24,6 +24,10 @@ class BracketsTest(unittest.TestCase):
         self_test_3 = "{}[(}{}])({})"
         self.assertEqual(balanced_brackets(self_test_3), False)
 
+    def test_ivanove(self):
+        test_str = '([)'
+        self.assertEqual(balanced_brackets(test_str), False)
+
 
 if __name__ == '__main__':
     unittest.main()
