@@ -1,0 +1,89 @@
+%! Author = air
+%! Date = 10.10.2022
+
+{}\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{tikz}
+\usepackage{amscd}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{epigraph}
+\usepackage{icomma}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\baselinestretch}{1.0}
+\renewcommand\normalsize{\sloppypar}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9.1in}
+\setlength{\oddsidemargin}{-0.3in}
+\setlength{\textwidth}{7in}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1ex}
+
+% Document
+\begin{document}
+\textbf{Задание:}
+
+В эллипс, заданный уравнением
+
+\begin{align}
+    \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1
+    \label{eq:equation}
+\end{align}
+
+вписать прямоугольник максимальной площади так, чтобы стороны прямоугольника были параллельны осям эллипса.
+
+Найти наибольшую возможную площадь прямоугольника.
+
+\textbf{Решение:}
+Представим уравнение~\eqref{eq:equation} в параметрической форме:
+
+\begin{align}
+    \begin{cases}
+      x = a \cdot \cos{t} \\
+      y = b \cdot \sin{t}
+    \end{cases}
+    \label{eq:param}
+\end{align}
+
+где \(a\) и \(b\) -- полуоси.
+
+Вершины прямоугольника \( (-x,-y), (-x,+y), (+x,+y), (+x,-y) \).
+
+Стороны прямоугольника равны \(2x\) и \(2y\) \Rightarrow
+
+\begin{align}
+    S = 2x \cdot 2y = 4xy
+    \label{eq:space}
+\end{align}
+
+Подставим~\eqref{eq:param} в~\eqref{eq:space}
+
+\begin{align*}
+    S(t) &= 4ab \cdot \cos(t) \cdot \sin(t) = 2ab \cdot \sin(2t) \\
+    S'(t) &= 2ab \cdot 2 \cdot \cos(2t) \Rightarrow \cos(2t)=0 \Rightarrow \\
+    \Rightarrow t &= \frac{\pi \cdot n}{2} - \frac{\pi}{4}, n \in \mathbb{Z}
+    \label{eq:space_param}
+\end{align*}
+
+Пусть \(t = \frac{\pi}{4} \Rightarrow \sin(2t) = 1, \sin(t) = \cos(t) = \frac{\sqrt {2}}{2}\)
+
+Подставим эти значения в~\eqref{eq:param} и найдем площадь:
+
+\begin{align*}
+    \begin{cases}
+      x = a \cdot \frac{\sqrt {2}}{2}\) \\
+      y = b \cdot \frac{\sqrt {2}}{2}\)
+    \end{cases}
+    \label{eq:param_solution}
+\end{align*}
+
+\textbf{Ответ:} \(S = 2ab\)
+
+\end{document}
