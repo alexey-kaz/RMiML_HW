@@ -1,0 +1,102 @@
+%! Author = air
+%! Date = 10.10.2022
+
+{}\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{tikz}
+\usepackage{amscd}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{epigraph}
+\usepackage{icomma}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\baselinestretch}{1.0}
+\renewcommand\normalsize{\sloppypar}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9.1in}
+\setlength{\oddsidemargin}{-0.3in}
+\setlength{\textwidth}{7in}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1ex}
+\newtheorem{theorem}{Теорема}
+\newtheorem{utv}{Утверждение}
+\newtheorem{lemma}{Лемма}
+% Document
+\begin{document}
+    Обновление стохастического градиентного спуска (\textbf{SGD}) на каждой итерации $t$:
+
+    \[
+        \theta_{t+1} = \theta_t - \eta g
+    \]
+
+    где:
+
+    \begin{itemize}
+        \item $\theta$ -- параметр, который алгоритм будет изменять для достижения приемлемых потерь;
+        \item $g$ -- градиент, который показывает противоположное направление
+              и насколько сильно требуется менять параметры, чтобы минимизировать потери;
+        \item $\eta$ -- скорость обучения – то, насколько мы изменяем наши параметры по отношению к градиенту.
+    \end{itemize}
+
+    \textbf{SGD} может быть медленным, например, когда градиент постоянно мал.
+    Это связано с правилом обновления алгоритма, которое на каждой итерации зависит только от градиентов.
+    `Шум` при подсчете градиента также может быть проблемой, поскольку стохастический градиентный спуск
+    часто будет следовать неправильному градиенту.
+
+    При обучении нейронных сетей может быть использован градиентный спуск на основе импульса (\textbf{Momentum})
+    для борьбы с этими проблемами и ускорения обучения по сравнению с оригинальным \textbf{SGD}\@.
+    Импульс учитывает предыдущие градиенты в правиле обновления на каждой итерации.
+
+    \begin{align}
+        & v_{t+1} = \alpha v_t - \eta g \\
+        & \theta_{t+1} = \theta_t + v_{t+1}
+    \end{align}
+
+    где:
+
+    \begin{itemize}
+        \item $v$ -- направление и скорость, с которой параметр должен быть изменен
+        \item $\alpha$ -- гиперпараметр затухания, который определяет, как быстро будут затухать накопленные градиенты \\
+        \end{itemize}
+    Если $\alpha$ намного больше $\eta$, накопленные градиенты будут доминировать в правиле обновления,
+    поэтому градиент не изменит направление слишком быстро.
+    Это хорошо в условиях, когда градиент зашумлен, потому что градиент навсегда останется в истинном направлении.
+    С другой стороны, если $\alpha$ намного меньше $\eta$, накопленные градиенты могут действовать как
+    фактор сглаживания градиента.
+
+    Другим методом, тесно связанным с градиентным спуском на основе импульса,
+    является ускоренный градиентный спуск Нестерова (\textbf{NAG}).
+    Разница между \textbf{Momentum} и \textbf{NAG} заключается в фазе вычисления градиента.
+    В методе импульса градиент был вычислен с использованием текущих параметров $\theta t$:
+
+    \begin{align}
+        g=\frac{1}{n} \sum_{i=1}^n \nabla_\theta \mathcal{L}\left(x^{(i)}, y^{(i)}, \theta_t\right)
+    \end{align}
+
+    в то время как в \textbf{NAG} мы применяем скорость $vt$ к параметрам $\theta$ для вычисления
+    промежуточных параметров $\theta$.
+    Затем мы вычисляем градиент, используя промежуточные параметры
+
+    \begin{equation}
+        \begin{aligned}
+            & \tilde{\theta}=\theta_t+\alpha v_t \\
+            & g_{N A G} =\frac{1}{n} \sum_{i=1}^n \nabla_\theta \mathcal{L}\left(x^{(i)}, y^{(i)}, \tilde{\theta}\right) \\
+            & v_{t+1} = \alpha v_t - \eta g \\
+            & \theta_{t+1} = \theta_t + v_{t+1}
+        \end{aligned}\label{eq:equation}
+    \end{equation}
+
+    Мы можем рассматривать \textbf{NAG} (и в принципе параметр \textbf{accelerate}) как поправочный коэффициент
+    для \textbf{Momentum}.
+
+    Когда скорость обучения $\eta$ относительно велика,
+    \textbf{NAG} допускают большую скорость затухания $\alpha$, чем \textbf{Momentum}, предотвращая при этом колебания.
+
+\end{document}

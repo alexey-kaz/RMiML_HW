@@ -1,0 +1,98 @@
+%! Author = air
+%! Date = 10.10.2022
+
+{}\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{tikz}
+\usepackage{amscd}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{epigraph}
+\usepackage{icomma}
+\usepackage{graphicx}
+\usepackage{lscape}
+ \usepackage{longtable}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\baselinestretch}{1.0}
+\renewcommand\normalsize{\sloppypar}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9.1in}
+\setlength{\oddsidemargin}{-0.3in}
+\setlength{\textwidth}{7in}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1ex}
+
+% Document
+\begin{document}
+    % Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+% \usepackage{lscape}
+% Please add the following required packages to your document preamble:
+% \usepackage{longtable}
+% Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
+\resizebox{\textwidth}{!}{%
+\begin{array}{|c||c|}
+\hline\\
+\textbf{Оптимизатор} & \textbf{Формулы}
+\\ \hline
+\textbf{Gradient Descent (GD)} & \theta_{t+1} = \theta_t - \alpha \cdot \nabla_{\theta} J\left( \theta_t \right)
+\\ \hline
+\textbf{Stochastic Gradient Descent (SGD)} & \theta_{t+1} = \theta_t - \alpha \cdot \nabla_{\theta} J\left( \theta_t, sample \right)
+\\ \hline
+\textbf{Mini-Batch GD} & \theta_{t+1} = \theta_t - \alpha \cdot \nabla_{\theta} J\left( \theta_t, N samples \right)
+\\ \hline
+\textbf{SGD + Momentum} & v_{t+1} = \gamma \cdot v_t + \eta \cdot \nabla_\theta J \left( \theta_t \right) \\ & \theta_{t+1} = \theta_t - v_{t+1}
+\\ \hline
+\textbf{NAG (Nesterov Accelerated Gradient)} & v_{t+1} = \gamma \cdot v_t + \eta \cdot \nabla_\theta J \left( \theta_t - v_t \right) \\ & \theta_{t+1} = \theta_t - v_{t+1}
+\\ \hline
+\textbf{Adagrad} & g_t = \nabla_{\theta} J \left( \theta_t \right)\\ & G_t = G_{t-1}+g^2_t \\ & \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt {G_t + \varepsilon}}g_t \\ & \varepsilon \ll 1
+\\ \hline
+\textbf{RMSprop} & g_t = \nabla_{\theta} J \left( \theta_t \right) \\ & G_t =\gamma G_{t-1} + \left( 1 - \gamma \right)g^2_t \\ & \theta_{t+1} = \theta_t - \frac{\eta}{G_t + \varepsilon_t}g_t
+\\ \hline
+\textbf{Adadelta} & g_t = \nabla_{\theta} J \left( \theta_t \right)
+\\ & E \left[ g^2 \right]_t = \gamma E \left[ g^2 \right]_{t-1} + \left( 1 - \gamma \right)g^2_t
+\\ & RMS \left[ g^2 \right]_t = \sqrt {E \left[ g^2 \right]_t + \varepsilon} \\                      & \theta_{t+1} = \theta_t - \frac{RMS \left[ \Delta \theta \right]_{t-1}}{RMS \left[ g^2 \right]_t}g_t
+\\ \hline
+\textbf{Adam} & g_t = \nabla_{\theta} J \left( \theta_t \right)
+\\ & m_t = \beta_1 m_{t-1} + \left( 1 - \beta_1 \right)g_t
+\\ & \widehat{m}_t = \frac{m_t}{1-\beta^t_1}
+\\ & v_t = \beta_2 v_{t-1} + \left( 1 - \beta_2 \right)g^2_t
+\\ & \widehat{v}_t = \frac{v_t}{1-\beta^t_2}
+\\& \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\widehat{v}_t+\varepsilon}}\widehat{m}_t
+\\ \hline
+\end{array}
+}
+
+%\newpage
+%\renewcommand{\arraystretch}{2.0}
+%\begin{tabular}{|l|l|l|}
+%\hline
+%\textbf{Оптимизатор}                         & \textbf{Преимущества}                                                                                                                                          & \textbf{Недостатки}                                                                                                                                                                                                                  \\
+%\hline
+%\textbf{Gradient Descent (GD)}               & \begin{tabular}[c]{@{}l@{}}- Поскольку все данные берутся за один раз, они достигают глобальных минимумов без какого-либо шума, но подходят только для небольших наборов данных.\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}- Вычисление происходит очень медленно, т.к. используются все данные;\\- Может сходится к глобальному минимуму для выпуклых функций и перейти к локальному минимуму для невыпуклых функций.\end{tabular}  \\
+%\hline
+%\textbf{Stochastic Gradient Descent (SGD)}   & \begin{tabular}[c]{@{}l@{}}- Быстрее GD;\\- Новые samples могут быть добавлены по мере поступления новых данных.\end{tabular}                                                                                   & \begin{tabular}[c]{@{}l@{}}- - Большие колебания функции потерь из-за частого изменения данных. \end{tabular}                                                                                                                                                                          \\
+%\hline
+%\textbf{Mini-Batch GD}                       & \begin{tabular}[c]{@{}l@{}}- Может в полной мере использовать матричные операции, которые высоко оптимизированы в библиотеке глубокого обучения для более эффективных вычислений градиента.\end{tabular}        & \begin{tabular}[c]{@{}l@{}}- Уменьшение скорость обучения может привести к замедлению схождения;\\- Большая скорость обучения может привести к флуктуации скорости потерь.\end{tabular}                                              \\
+%\hline
+%\textbf{SGD + Momentum}                      & \begin{tabular}[c]{@{}l@{}}- Повышенная стабильность\\- Обучение происходит быстрее;\\- Возможность избавиться от локальной оптимизации.\end{tabular}                                                           & \begin{tabular}[c]{@{}l@{}}- - Долгое обучение при малом угле наклона поверхности функции потерь.\end{tabular}                                                                                                                                                                        \\
+%\hline
+%\textbf{NAG (Nesterov Accelerated Gradient)} & \begin{tabular}[c]{@{}l@{}}- Более надежный (лучше сходимость, чем SGD + Momentum)\end{tabular}                                                                                                                 & \begin{tabular}[c]{@{}l@{}}- - Высокая вычислительная сложность\end{tabular}                                                                                                                                                                                                          \\
+%\hline
+%\textbf{Adagrad}                             & \begin{tabular}[c]{@{}l@{}}- Устраняет необходимость ручной настройки скорости обучения\end{tabular}                                                                                                            & \begin{tabular}[c]{@{}l@{}}- - Продолжительное снижение скорости обучения, что приводит к минимальной скороски обучения в конце обучения.\end{tabular}                                                                                                                                \\
+%\hline
+%\textbf{RMSprop}                             & \begin{tabular}[c]{@{}l@{}}- Замедляет затухание скорости обучения\end{tabular}                                                                                                                                 & \begin{tabular}[c]{@{}l@{}}- - Подбор начальной скорости обучения.\end{tabular}                                                                                                                                                                                                       \\
+%\hline
+%\textbf{Adadelta}                            & \begin{tabular}[c]{@{}l@{}}- Не требуется задавать скорость обучения\end{tabular}                                                                                                                               & \begin{tabular}[c]{@{}l@{}}- - Риск возникновения колебаний в районе локальных минимумов.\end{tabular}                                                                                                                                                                               \\
+%\hline
+%\textbf{Adam}                                & \begin{tabular}[c]{@{}l@{}}- Коррекция смещения;~\\- Границы размера шага ограничены\end{tabular}                                                                                                               & \begin{tabular}[c]{@{}l@{}}- - Колебание скорости обучения~;\\- Сложность схождения в конце обучения.\end{tabular}                                                                                                                                                                       \\
+%\hline
+%\end{tabular}
+\end{document}
